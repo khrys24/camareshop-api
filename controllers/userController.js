@@ -124,3 +124,25 @@ exports.register = async (req, res) => {
     
 
 }
+
+exports.login = (req, res) => {
+    const { email, password } = req.body;
+  
+    db.query(
+      `SELECT * FROM users
+    WHERE email = ?`,
+      email,
+      async (err, result) => {
+        if (
+          !result.length ||
+          !(await bcrypt.compare(password, result[0].password))
+        ) {
+          console.log(result);
+          return res
+            .status(401)
+            .json({ message: "Email or password is incorrect" });
+        }
+        return res.status(200).json(result[0]);
+      }
+    );
+  };
