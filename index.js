@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
 const path = require('path');
+const cors = require('cors');
 
 const port = 3001;
 const hostname = 'localhost';
@@ -11,7 +12,11 @@ dotenv.config({path: './.env'});
 const app = express();
 
 app.use( express.json() );
+app.use( cors() );
 app.use( express.urlencoded( {extended: true} ) );
+app.use( 'public', express.static( path.join(__dirname, '/public') ) );
+const directory = path.join(__dirname, '/public/images');
+app.use('/images', express.static(directory));
 
 //Fix cors error
 app.use(function(req, res, next) {
@@ -34,6 +39,7 @@ const db = mysql.createConnection({
 //Routes
 app.use('/users', require('./routes/user') );
 app.use('/orders', require('./routes/order') );
+app.use('/products', require('./routes/product') );
 
 app.listen(port, hostname, () => {
     console.log(`Server started at http://${hostname}:${port}`);

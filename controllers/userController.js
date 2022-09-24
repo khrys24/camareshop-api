@@ -120,9 +120,6 @@ exports.register = async (req, res) => {
             );
         }
     );
-
-    
-
 }
 
 exports.login = (req, res) => {
