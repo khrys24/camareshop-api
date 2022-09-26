@@ -28,6 +28,10 @@ router.get('/cities', (req, res) => {
 
 router.post('/register', userController.register);
 router.post("/login", userController.login);
+router.get("/", userController.fetchusers);
+router.get("/:id", userController.getUser);
+router.post("/:id", userController.update);
+router.delete("/:id", userController.delete);
 
 
 module.exports = router;
