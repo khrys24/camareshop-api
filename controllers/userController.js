@@ -143,3 +143,58 @@ exports.login = (req, res) => {
       }
     );
   };
+
+  exports.fetchusers = (req, res) => {
+    db.query(`SELECT * FROM users`, (err, result) => {
+      if (err) {
+        return console.log(err.message);
+      }
+      return res.status(200).json(result);
+    });
+  };
+
+  exports.getUser = (req, res) => {
+    const id = req.params.id;
+    db.query(
+      `SELECT * FROM users
+    WHERE user_id=?`,
+      id,
+      (err, result) => {
+        if (err) {
+          return console.log(err.message);
+        }
+        return res.status(200).json(result);
+      }
+    );
+  };
+
+  exports.update = (req, res) => {
+    const id = req.params.id;
+    const { first_name, last_name, phone_number, address } = req.body;
+  
+    db.query(
+      `UPDATE users
+      SET first_name = ?, last_name=?, phone_number = ?, address = ?
+      WHERE user_id= ? `,
+      [first_name, last_name, phone_number, address, id],
+      (err) => {
+        if (err) {
+          return console.log(err.message);
+        }
+        console.log("User Updated");
+        return res.status(200).json({ message: "User updated Successfully" });
+      }
+    );
+  };
+
+  exports.delete = (req, res) => {
+    const id = req.params.id;
+  
+    db.query(`DELETE FROM users WHERE user_id = ?`, id, (err) => {
+      if (err) {
+        return console.log(err.message);
+      }
+      console.log(`Deleted user_id ${id}`);
+      res.json({ message: "User has been deleted" });
+    });
+  };
