@@ -33,8 +33,8 @@ const imageUpload = upload.fields([{ name: "image" }]);
 router.get("/list", productController.products);
 router.get("/productList", productController.productList);
 router.get("/:id", productController.getProduct);
-/* router.post("/:id", productController.updateProduct); */
 router.delete("/:id", productController.delete);
 router.post("/addproduct", imageUpload, productController.addproduct);
+router.post("/:id", productController.updateProduct);
 
 module.exports = router;
