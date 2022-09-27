@@ -72,12 +72,11 @@ exports.delete = (req, res) => {
   });
 };
 
-//Weird Error
 exports.addproduct = (req, res) => {
   const { name, description, price } = req.body;
   const image = req.files.image[0];
-/*   const imagePath = req.protocol + "://"+req.get("host")+"/public/images/"+image.filename; */
-const imagePath = image.filename;
+  /*   const imagePath = req.protocol + "://"+req.get("host")+"/public/images/"+image.filename; */
+  const imagePath = image.filename;
 
   db.query(
     `INSERT INTO products SET ?`,
