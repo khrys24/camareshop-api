@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `camare_shop`.`orders` (
   `contact_number` VARCHAR(45) NOT NULL,
   `address` VARCHAR(255) NOT NULL,
   `country` VARCHAR(100) NOT NULL,
-  `date_delivered` DATETIME NOT NULL,
+  `date_delivered` DATETIME DEFAULT NULL,
   `total` DOUBLE(10,2) NOT NULL DEFAULT 0.0,
   `status` VARCHAR(45) NOT NULL,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

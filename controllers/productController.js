@@ -45,6 +45,7 @@ exports.updateProduct = (req, res) => {
   const id = req.params.id;
   const { name, description, image, price } = req.body;
 
+  console.log('updateProduct', req.body);
   db.query(
     `UPDATE products
       SET name = ?, description=?,  price = ?
@@ -73,6 +74,7 @@ exports.delete = (req, res) => {
 };
 
 exports.addproduct = (req, res) => {
+    // console.log()
   const { name, description, price } = req.body;
   const image = req.files.image[0];
   /*   const imagePath = req.protocol + "://"+req.get("host")+"/public/images/"+image.filename; */
