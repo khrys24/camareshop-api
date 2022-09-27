@@ -41,7 +41,7 @@ exports.getProduct = (req, res) => {
   );
 };
 
-/* exports.updateProduct = (req, res) => {
+exports.updateProduct = (req, res) => {
   const id = req.params.id;
   const { name, description, image, price } = req.body;
 
@@ -58,7 +58,7 @@ exports.getProduct = (req, res) => {
       return res.status(200).json({ message: "Product updated Successfully" });
     }
   );
-}; */
+};
 
 exports.delete = (req, res) => {
   const id = req.params.id;
@@ -72,12 +72,11 @@ exports.delete = (req, res) => {
   });
 };
 
-//Weird Error
 exports.addproduct = (req, res) => {
   const { name, description, price } = req.body;
   const image = req.files.image[0];
-/*   const imagePath = req.protocol + "://"+req.get("host")+"/public/images/"+image.filename; */
-const imagePath = image.filename;
+  /*   const imagePath = req.protocol + "://"+req.get("host")+"/public/images/"+image.filename; */
+  const imagePath = image.filename;
 
   db.query(
     `INSERT INTO products SET ?`,
