@@ -78,7 +78,9 @@ exports.statusChange = (req, res) => {
 
 exports.cancelOrder = (req, res) => {
     db.query(
-        `DELETE FROM orders WHERE order_id = ?`,
+        `UPDATE orders
+        SET status = 'cancelled'
+        WHERE order_id = ?`,
         req.body.order_id,
         (err, result) => {
             if(err) {
