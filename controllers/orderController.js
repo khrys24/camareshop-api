@@ -90,3 +90,60 @@ exports.cancelOrder = (req, res) => {
         }
     );
 }
+
+exports.placeOrder = (req, res) => {
+    console.log(req.body);
+    const {
+        user_id,
+        phone,
+        address,
+        city,
+        state,
+        total,
+        items
+       
+      } = req.body;
+
+    db.query(
+        `INSERT INTO orders SET ?`,
+        {
+            contact_number: phone,
+            address: address,
+            country: "PH",
+            total: total,
+            status: "pending",
+            user_id: user_id,
+            city_id: city
+
+        },
+        (err, result) => {
+            if (err) {
+              return console.log(err.message);
+            }
+
+            let order_items = [];
+
+            for(let i in items) {
+                order_items.push([
+                    items[i].product_id,
+                    typeof items[i].quantity == 'string' ? parseInt(items[i].quantity, 10) : items[i].quantity,
+                    items[i].total,
+                    result.insertId
+                ]);
+            }
+            console.log('order_items', order_items);
+            db.query(
+                `INSERT INTO order_items (product_id, quantity, total, order_id) VALUES ?`,
+                [order_items],
+                (err) => {
+                    if (err) {
+                      return console.log(err.message);
+                    }
+
+                    console.log("Order Submitted");
+                     res.send("Success!");
+                });
+          }
+        
+    );
+};
