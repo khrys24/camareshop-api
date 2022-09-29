@@ -67,6 +67,9 @@ exports.register = async (req, res) => {
     confirm_password,
   } = req.body;
 
+  const regEx =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   let error_list = {};
   // error_list.first_name = first_name ? "" : "First Name is required";
 
@@ -80,6 +83,11 @@ exports.register = async (req, res) => {
     return res.status(400).json(error_list);
   }
 
+  if(regEx.test(email) == false) {
+    error_list.email = "Please enter a valid email";
+    return res.status(400).json(error_list);
+  } 
+    
   const hashpassword = await bcrypt.hash(password, 10);
 
   db.query(
