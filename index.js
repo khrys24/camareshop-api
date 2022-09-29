@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const path = require("path");
 const cors = require("cors");
 
-const port = 3001;
+const port = process.env.port;
 const hostname = "localhost";
 
 dotenv.config({ path: "./.env" });
@@ -41,7 +41,7 @@ app.use("/users", require("./routes/user"));
 app.use("/orders", require("./routes/order"));
 app.use("/products", require("./routes/product"));
 
-app.listen(port, hostname, () => {
+app.listen(process.env.port || port, () => {
   console.log(`Server started at http://${hostname}:${port}`);
   db.connect((err) => {
     if (err) {
