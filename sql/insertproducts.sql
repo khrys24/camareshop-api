@@ -1,5 +1,5 @@
 INSERT INTO products (name, description, image, price, status)
-VALUES
+VALUES 
     (
         "Black Forest",
         "moist chocolate with whipped cream frosting and a cherry topping.",
